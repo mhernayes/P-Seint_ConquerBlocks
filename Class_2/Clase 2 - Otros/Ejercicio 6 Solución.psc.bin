@@ -1,0 +1,40 @@
+Algoritmo Ejercicio6
+	//1. Definir e inicializar variables
+	Definir num, cifra1, cifra2, cifra3, cifraMasBaja, parteEntera Como Entero
+	num = 0
+	cifra1 = 0
+	cifra2 = 0
+	cifra3 = 0
+	cifraMasBaja = 0
+	parteEntera = 0
+	
+	//2. Pedir el número de 3 cifras
+	Escribir "Introduce un número de 3 cifras (100 - 999)"
+	Leer num
+	
+	//3. Comprobar que el número es de 3 cifras
+	Si (num >=100) Y (num <= 999) Entonces
+		//3. Obtener las cifras del número
+		cifra1 = num MOD 10
+		parteEntera = trunc(num/10)
+		cifra2 = parteEntera MOD 10
+		parteEntera = trunc(num/100)
+		cifra3 = parteEntera MOD 10
+		
+		//4. Obtener la cifra más baja
+		Si (cifra1 <= cifra2) Y (cifra1 <= cifra3)
+			cifraMasBaja = cifra1
+		SiNo
+			Si (cifra2 <= cifra1) Y (cifra2 <= cifra3)
+				cifraMasBaja = cifra2
+			SiNo
+				cifraMasBaja = cifra3
+			FinSi
+		FinSi
+		
+		//5. Escribir cuál es la cifra más baja
+		Escribir "La cifra más baja para el número ", num, " es: ", cifraMasBaja
+	SiNo
+		Escribir "El número introducido no es de 3 cifras"
+	FinSi
+FinAlgoritmo

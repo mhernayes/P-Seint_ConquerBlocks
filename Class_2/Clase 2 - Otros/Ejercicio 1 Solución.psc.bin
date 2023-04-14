@@ -1,0 +1,18 @@
+Algoritmo Ejercicio1
+	//1. Definir e inicializar variables
+	Definir num Como Entero
+	num = 0
+	
+	//2. Pedir el número a comprobar
+	Escribir "Introduce un número (entero)"
+	Leer num
+	
+	//3. Comprobar si es múltiplo de 2 y de 3 a la vez
+	//Para ello, podemos utilizar la operación MOD (o %),
+	//de forma que nos devuelva el resto de la división
+	Si (num MOD 2 = 0) Y (num MOD 3 = 0)
+		Escribir "El número SI es múltiplo de 2 y de 3 a la vez"
+	SiNo
+		Escribir "El número NO es múltiplo de 2 y de 3 a la vez"
+	FinSi
+FinAlgoritmo

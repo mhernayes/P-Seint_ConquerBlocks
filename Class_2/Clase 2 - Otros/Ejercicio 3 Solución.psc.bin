@@ -1,0 +1,42 @@
+Algoritmo Ejercicio3
+	//1. Definir e inicializar variables
+	Definir momentoDia Como Texto
+	Definir numHoras, tarifa Como Entero
+	momentoDia = ""
+	numHoras = 0
+	tarifa = 0
+	
+	//2. Pedir el momento del día y el número de horas que asistirás al gimnasio
+	Escribir "¿Cuándo irás al gimnasio? Opciones: mañanas | tardes"
+	Leer momentoDia
+	Escribir "¿Cuántas horas irás? 1, 2 o 3 (más)"
+	Leer numHoras
+	
+	//3. Ver cuál es la tarifa en función del momento del día y las horas
+	Segun momentoDia Hacer
+		"mañanas":
+			Si numHoras = 1 Entonces
+				tarifa = 10
+			SiNo
+				Si numHoras = 2 Entonces
+					tarifa = 20
+				SiNo
+					tarifa = 30
+				FinSi
+			FinSi
+		"tardes":
+			Si numHoras = 1 Entonces
+				tarifa = 20
+			SiNo
+				Si numHoras = 2 Entonces
+					tarifa = 30
+				SiNo
+					tarifa = 40
+				FinSi
+			FinSi
+	FinSegun
+	
+	//4. Devolver la tarfica
+	Escribir "La tarifa para ", momentoDia, " y ", numHoras, " horas es de: ", tarifa
+	
+FinAlgoritmo

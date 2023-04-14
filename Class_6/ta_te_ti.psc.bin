@@ -1,0 +1,217 @@
+
+
+//funcion mostrar tablero
+Funcion mostrarTablero(_jugada,_tablero)
+	
+	Definir i, j Como Entero
+	i = 0
+	j = 0
+	
+Escribir ""
+Escribir " --------------------------------"
+Escribir "| TABLERO - JUGADA " , _jugada, " |"
+Escribir " --------------------------------"
+Escribir ""
+
+Para i = 0 Hasta 2 con Paso 1 Hacer
+	Para j = 0 Hasta 2 Con Paso 1 Hacer
+		Escribir _tablero[i,j], " " Sin Saltar
+	FinPara
+	Escribir ""
+FinPara
+FinFuncion
+
+
+//funcion comprobar ganador
+Funcion _quienGana = ganador(_tablero,_eleccion)
+	
+	//definir variables 
+	Definir i, j, _quienGana Como Entero
+	i = 0
+	j = 0
+	_quienGana = 0
+	
+	Para j = 0 Hasta 2 Con Paso 1 Hacer //recorrer el tablero en todas las posiciones
+			Si (_tablero[0,j] = "X") Y (_tablero[0,j] = _tablero[1,j]) Y (_tablero[0,j] = _tablero[2,j]) Y _eleccion = "x" Entonces //comparar si en la horizontal hay un ganador
+				_quienGana = 1 
+			SiNo 
+				Si (_tablero[0,j] = "O") Y (_tablero[0,j] = _tablero[1,j]) Y (_tablero[0,j] = _tablero[2,j]) Y _eleccion = "x" Entonces
+					_quienGana = 2
+				FinSi
+			FinSi
+				
+			Si (_tablero[0,j] = "O") Y (_tablero[0,j] = _tablero[1,j]) Y (_tablero[0,j] = _tablero[2,j]) Y _eleccion = "o" Entonces //comparar si en la horizontal hay un ganador
+				_quienGana = 1
+			SiNo 
+				Si (_tablero[0,j] = "X") Y (_tablero[0,j] = _tablero[1,j]) Y (_tablero[0,j] = _tablero[2,j]) Y _eleccion = "o" Entonces
+					_quienGana = 2
+				FinSi
+			FinSi
+	FinPara
+			
+	Para i = 0 Hasta 2 con Paso 1 Hacer		
+			Si (_tablero[i,0] = "X") Y (_tablero[i,0] = _tablero[i,1]) Y (_tablero[i,0] = _tablero[i,2]) Y _eleccion = "x" Entonces //comparar si en la vertical hay un ganador
+				_quienGana = 1
+			SiNo
+				Si (_tablero[i,0] = "O") Y (_tablero[i,0] = _tablero[i,1]) Y (_tablero[i,0] = _tablero[i,2]) Y _eleccion = "x" Entonces
+					_quienGana = 2
+				FinSi
+			FinSi
+			
+			Si (_tablero[i,0] = "O") Y (_tablero[i,0] = _tablero[i,1]) Y (_tablero[i,0] = _tablero[i,2]) Y _eleccion = "o" Entonces //comparar si en la vertical hay un ganador
+				_quienGana = 1
+				
+			SiNo
+				Si  (_tablero[i,0] = "X") Y (_tablero[i,0] = _tablero[i,1]) Y (_tablero[i,0] = _tablero[i,2]) Y _eleccion = "o" Entonces
+					_quienGana = 2
+				FinSi
+			FinSi
+	FinPara
+	
+	Si (_tablero[0,0] = "X") Y (_tablero[0,0] = _tablero[1,1]) Y (_tablero[0,0] = _tablero[2,2]) Y _eleccion = "x" Entonces //comparar si en la diagonal hay un ganador
+		_quienGana = 1
+	SiNo
+		Si (_tablero[0,0] = "O") Y (_tablero[0,0] = _tablero[1,1]) Y (_tablero[0,0] = _tablero[2,2]) Y _eleccion = "x" Entonces
+			_quienGana = 2
+		FinSi
+	FinSi
+	
+	Si (_tablero[0,2] = "X") Y (_tablero[0,2] = _tablero[1,1]) Y (_tablero[0,2] = _tablero[2,0]) Y _eleccion = "x" Entonces //comparar si en la diagonal hay un ganador
+		_quienGana = 1
+	SiNo
+		Si (_tablero[0,2] = "O") Y (_tablero[0,2] = _tablero[1,1]) Y (_tablero[0,2] = _tablero[2,0]) Y _eleccion = "x" Entonces
+			_quienGana = 2
+		FinSi
+	FinSi
+	
+	Si _quienGana = 1 Entonces
+		Escribir "Has ganado"
+		Escribir "---------------------"
+		Escribir "FIN DEL JUEGO"
+	SiNo
+		Si _quienGana = 2 Entonces
+			Escribir "Has perdido"
+			Escribir "---------------------"
+			Escribir "FIN DEL JUEGO"
+		FinSi
+	FinSi
+
+	
+FinFuncion
+
+
+Algoritmo ta_te_ti
+	
+	//definir e inicializar las variables
+	
+	Definir tablero, eleccion Como Texto
+	Definir i, j, turno, jugada, posicionCorrecta, quienGana Como Entero
+	
+	
+	Dimension tablero[3,3]
+	i = 0
+	j = 0
+	turno = 0
+	jugada = 1
+	posicionCorrecta = 0
+	eleccion = ""
+	quienGana = 0
+	
+	//completar el tablero
+	Para i = 0 Hasta 2 con Paso 1 Hacer
+		Para j = 0 Hasta 2 Con Paso 1 Hacer
+			tablero[i,j] = "**"
+		FinPara
+	FinPara
+	
+	//llamar a la funcion mostrar tablero
+	mostrarTablero(jugada,tablero)
+	
+	//solicitar al usuario que elija X o 0
+	Escribir "Que queres ser? (X - O)"
+	Leer eleccion
+	
+	//definir aleatoriamente quien comienza la partida
+	turno = azar(2)
+	Esperar 1 Segundos
+	
+	//condiciones para que se repita el bulce
+	Mientras (jugada < 9) Y (quienGana = 0)
+		Si eleccion = "o" Y turno = 0 Entonces //dependiendo de la eleccion y turno se fijan las condiciones
+			Escribir "Es el turno de la computadora"
+			Mientras (posicionCorrecta = 0) Hacer
+				i = azar(3)
+				j = azar(3)
+					Si tablero[i,j] = "**" Entonces
+						posicionCorrecta = 1
+						tablero[i,j] = "X" 
+					FinSi
+			FinMientras
+			turno = 1 //resetear turno
+			posicionCorrecta = 0
+			Esperar 1 Segundos //esperamos 1 segundo hasta mostrar el tablero
+			mostrarTablero(jugada,tablero) //mostrar el tablero
+			jugada = jugada + 1 //contabilizar las jugadas
+			quienGana = ganador(tablero,eleccion)
+		FinSi
+		
+		//si el turno es de la computadora
+		Si eleccion = "x" Y turno = 0 Entonces //dependiendo de la eleccion y turno se fijan las condiciones
+			Escribir "Es el turno de la computadora"
+			Mientras (posicionCorrecta = 0) Hacer
+				i = azar(3)
+				j = azar(3)
+					Si tablero[i,j] = "**" Entonces
+						posicionCorrecta = 1
+						tablero[i,j] = "O" 
+					FinSi
+			FinMientras
+			turno = 1 //resetear turno
+			posicionCorrecta = 0
+			Esperar 1 Segundos //esperamos 1 segundo hasta mostrar el tablero
+			mostrarTablero(jugada,tablero) //mostrar el tablero
+			jugada = jugada + 1 //contabilizar las jugadas
+			quienGana = ganador(tablero,eleccion)
+		FinSi
+		
+		//si  el turno es del usuario
+		Si eleccion = "o" Y turno = 1 Entonces //dependiendo de la eleccion y turno se fijan las condiciones
+			Escribir "Es el turno del usuario"
+			Escribir "ingrese una fila: "
+			Leer i
+			
+			Escribir "ingrese una columna: "
+			Leer j
+			turno = 0 //resetear turno
+			
+			Si tablero[i,j] = "**" Entonces
+				tablero[i,j] = "O"
+			FinSi
+			Esperar 1 Segundos //esperamos 1 segundo hasta mostrar el tablero
+			mostrarTablero(jugada,tablero) //mostrar el tablero
+			jugada = jugada + 1 //contabilizar las jugadas
+			quienGana = ganador(tablero,eleccion)
+		FinSi
+			
+		//si el turno es del usuario
+		Si eleccion = "x" Y turno = 1 Entonces //dependiendo de la eleccion y turno se fijan las condiciones
+			Escribir "Es el turno del usuario"
+			Escribir "ingrese una fila: "
+			Leer i
+			
+			Escribir "ingrese una columna: "
+			Leer j
+			turno = 0 //resetear turno
+			
+			Si tablero[i,j] = "**" Entonces
+				tablero[i,j] = "X"
+			FinSi
+			Esperar 1 Segundos //esperamos 1 segundo hasta mostrar el tablero
+			mostrarTablero(jugada,tablero) //mostrar el tablero	
+			jugada = jugada + 1 //contabilizar las jugadas
+			quienGana = ganador(tablero,eleccion)
+		FinSi
+	FinMientras
+	
+	
+FinAlgoritmo
